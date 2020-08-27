@@ -87,7 +87,8 @@ Object.assign(RecordDataPrototype, {
       if (data.relationships) {
         this._setupRelationships(data);
       }
-      if (data.id) {
+      // Dont try and set ID when ID already exists on recordData
+      if (!this.id && data.id) {
         // didCommit provided an ID, notify the store of it
         this.storeWrapper.setRecordId(this.modelName, data.id, this.clientId);
         this.id = coerceId(data.id);
